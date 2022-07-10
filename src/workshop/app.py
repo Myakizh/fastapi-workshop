@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
+from api import router
+
 app = FastAPI()
 
-@app.get('/')
-def root():
-    return {'mesenge': 'Hello!'}
+app.include_router(router)
