@@ -1,12 +1,21 @@
-import imp
-import re
+from typing import List
 from fastapi import APIRouter
+
+import tables
+from database import Session
+from models.operations import Operation
 
 router = APIRouter(
     prefix='/operations',
 )
 
-@router.get('/')
+@router.get('/', response_model=List[Operation])
 def get_operations():
-    return []
+    session = Session()
+    operations = (
+        session
+        .query(tables.Operation)
+        .all()
+    )
+    return operations
     
