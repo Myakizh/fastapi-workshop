@@ -6,7 +6,7 @@ from fastapi import APIRouter
 from fastapi import Depends
 
 from database import get_session
-from models.operations import Operation, OperationKind
+from models.operations import Operation, OperationCreate, OperationKind
 from services.opetations import OperationsService
 
 router = APIRouter(
@@ -20,3 +20,9 @@ def get_operations(
 ):
     return service.get_list(kind=kind)
     
+@router.post('/', response_model=Operation)
+def create(
+    operation_data: OperationCreate,
+    service: OperationsService = Depends()
+):
+    return service.create(operation_data)

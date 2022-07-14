@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 import tables
 from database import get_session
-from models.operations import OperationKind
+from models.operations import OperationCreate, OperationKind
 
 class OperationsService:
     def __init__(self, session: Session = Depends(get_session)):
@@ -19,3 +19,9 @@ class OperationsService:
             query = query.filter_by(kind=kind)
         operations = query.all()
         return operations
+
+    def create(self, operation_data: OperationCreate) -> tables.Operation:
+        operation = tables.Operation(**operation_data.dict())
+        self.session.add(operation)
+        self.session.commit()
+        return operation

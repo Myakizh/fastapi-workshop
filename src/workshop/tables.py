@@ -10,4 +10,4 @@ class Operation(Base):
     date = sa.Column(sa.Date)
     kind = sa.Column(sa.String)
     amount = sa.Column(sa.Numeric(10, 2))
-    desctiption = sa.Column(sa.String, nullable=True)
+    description = sa.Column(sa.String, nullable=True)
